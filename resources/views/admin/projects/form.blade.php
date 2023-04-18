@@ -45,6 +45,20 @@
 
                 <div class="row my-2 justify-content-center">
                     <div class="col-8">
+                        <label for="title" class="form-label">Tipologia</label>
+                        <select class="form-select" aria-label="Default select example">
+                            <option selected>Seleziona la tipologia</option>
+                            <option value="">Nessun tipo</option>
+                            @foreach ($types as $type)
+                            <option value="{{ $type->id }}">{{ $type->label }}</option>
+                                
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row my-2 justify-content-center">
+                    <div class="col-8">
                         <label for="published" class="form-label">Pubblicato</label>
                         <input type="checkbox" name="published" id="published" class="form-check-control @error('published') is-invalid @enderror" @checked(old('published', $project->published)) value="1"/>
                         @error('published')    
