@@ -1,0 +1,29 @@
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    background-color: #5d87e0;
+}
+
+.navbar {
+    background-color: #20418a;
+
+    a {
+        color: whitesmoke;
+    }
+
+    a:hover {
+        color: rgb(179, 179, 179);
+    }
+}
+
+main {
+    overflow-y: auto;
+}
+
+a {
+    text-decoration: none;
+}
+
+.rotate-180 {
+    transform: rotate(180deg);
+}

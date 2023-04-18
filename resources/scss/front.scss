@@ -1,0 +1,21 @@
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    background-color: #333;
+}
+
+.navbar {
+    background-color: black;
+
+    a {
+        color: rgb(179, 179, 179);
+    }
+
+    a:hover {
+        color: whitesmoke;
+    }
+}
+
+main {
+    overflow-y: auto;
+}
