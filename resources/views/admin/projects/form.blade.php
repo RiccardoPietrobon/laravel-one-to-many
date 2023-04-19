@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', ($project->id) ? 'Modifica il Progetto' : 'Crea un nuovo progetto')
+@section('title', ($project->id) ? 'Modifica il Progetto: ' . $project->title: 'Crea un nuovo progetto')
 
 @section('actions')
     <div>
-        <a href="{{route('admin.projects.index')}}" class="btn btn-dark mx-1">
+        <a href="{{route('admin.projects.index')}}" class="btn btn-dark m-1">
             Torna indietro
         </a>
         @if ($project->id)
-            <a href="{{route('admin.projects.show', $project)}}" class="btn btn-dark mx-1">
+            <a href="{{route('admin.projects.show', $project)}}" class="btn btn-dark m-1">
             Mostrami il progetto
             </a>
         @endif
@@ -20,7 +20,7 @@
 
     @include('layouts.partials.errors')
 
-    <section class="card">
+    <section class="card my-1">
         <div class="card-body">
 
             @if ($project->id) {{-- se il progetto ha un id, quindi esiste già --}}

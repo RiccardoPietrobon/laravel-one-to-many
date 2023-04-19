@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            TypeSeeder::class, //per i framework circa
             ProjectSeeder::class, //per i dati
             UserSeeder::class, //per l'utente generato
-            TypeSeeder::class //per il tipo
-
+            TechnologySeeder::class, //per le tecnologie
+            ProjectTechnologySeeder::class, //per la tabella ponte, per ultima rispetto a Project e Technology
         ]);
     }
 }

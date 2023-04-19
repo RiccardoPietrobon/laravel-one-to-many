@@ -60,7 +60,7 @@ class TypeController extends Controller
         $type->fill($request->all()); //controlla il fillable nel model
         $type->save(); //salvo
 
-        return to_route('admin.types.show')
+        return to_route('admin.types.show', $type)
             ->with('message', 'Tipologia creata correttamente');
     }
 
@@ -110,7 +110,7 @@ class TypeController extends Controller
 
         $type->update($request->all()); //faccio l'update
 
-        return to_route('admin.types.show')
+        return to_route('admin.types.show', $type)
             ->with('message', 'Tipologia modificata correttamente');
     }
 

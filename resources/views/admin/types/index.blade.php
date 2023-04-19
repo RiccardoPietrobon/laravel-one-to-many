@@ -40,6 +40,14 @@
                     </a>
                 </th>
                 <th scope="col">
+                    <a href="{{ route('admin.types.index') }}?sort=label&order={{ $sort == 'label' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
+                        TIPOLOGIA
+                        @if ($sort == 'label')
+                            <i class="bi bi-triangle-fill d-inline-block @if($order == 'DESC') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col">
                     <a href="{{ route('admin.types.index') }}?sort=updated_at&order={{ $sort == 'updated_at' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
                         ULTIMA MODIFICA
                         @if ($sort == 'updated_at')
@@ -66,7 +74,7 @@
                     <th scope="row">{{ $type->id }}</th>
                     <td>{{ $type->label }}</td>
                     <td><span class="badge" style="background-color: {{ $type->color }}">{{ $type->color }}</span></td>
-
+                    <td><span class="badge" style="background-color: {{ $type->color }}">{{ $type->label }}</span></td>
                     <td>{{ $type->updated_at }}</td>
                     <td>{{ $type->created_at }}</td>
 
