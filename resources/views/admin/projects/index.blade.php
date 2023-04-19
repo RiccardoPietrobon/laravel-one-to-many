@@ -32,6 +32,14 @@
                     </a>
                 </th>
                 <th scope="col">
+                    <a href="{{ route('admin.projects.index') }}?sort=title&order={{ $sort == 'title' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
+                        TIPO
+                        @if ($sort == 'title')
+                            <i class="bi bi-triangle-fill d-inline-block @if($order == 'DESC') rotate-180 @endif"></i>
+                        @endif
+                    </a>
+                </th>
+                <th scope="col">
                     <a href="{{ route('admin.projects.index') }}?sort=text&order={{ $sort == 'text' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
                         ABSTRACT
                         @if ($sort == 'text')
@@ -65,6 +73,8 @@
                     <tr>
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
+                    <td>{{ $project->type?->label }}</td>
+
                     <td>{{ $project->getAbstract(20) }}</td>
                     <td>{{ $project->updated_at }}</td>
                     <td>{{ $project->created_at }}</td>

@@ -45,8 +45,8 @@
 
                 <div class="row my-2 justify-content-center">
                     <div class="col-8">
-                        <label for="title" class="form-label">Tipologia</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <label for="type_id" class="form-label">Tipologia</label>
+                        <select class="form-select" name="type_id" id="type_id">
                             <option selected>Seleziona la tipologia</option>
                             <option value="">Nessun tipo</option>
                             @foreach ($types as $type)

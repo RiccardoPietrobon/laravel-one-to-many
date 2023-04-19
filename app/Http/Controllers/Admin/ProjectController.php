@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type; //importo il type
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr; //classe per gli array
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +38,9 @@ class ProjectController extends Controller
     public function create()
     {
         $project = new Project;
-        return view('admin.projects.form', compact('project'));
+        $types = Type::orderBy('label')->get(); //aggiungo types per vederlo nel form
+
+        return view('admin.projects.form', compact('project', 'types'));
     }
 
     /**
@@ -53,6 +56,8 @@ class ProjectController extends Controller
                 'title' => 'required|string|max:100',
                 'text' => 'required|string',
                 'image' => 'nullable|image|mimes:jpg,png,jpeg',
+                'type_id' => 'nullable|exists:types,id',
+
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio',
@@ -64,6 +69,8 @@ class ProjectController extends Controller
 
                 'image.image' => 'Il file caricato deve essere un\'immagine',
                 'image.mimes' => 'L\'immagine deve essere un file jpg, png o jpeg',
+
+                'type_id.exists' => 'L\ID non è valido, seleziona tra quelli elencati',
 
             ]
         );
@@ -103,7 +110,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.form', compact('project'));
+        $types = Type::orderBy('label')->get(); //aggiungo types per vederlo nel form
+        return view('admin.projects.form', compact('project', 'types'));
     }
 
     /**

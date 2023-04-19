@@ -11,7 +11,7 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'image', 'text', 'published'];
+    protected $fillable = ['title', 'image', 'text', 'published', 'type_id'];
 
     //relations
 
