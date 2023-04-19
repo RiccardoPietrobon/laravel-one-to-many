@@ -40,6 +40,9 @@
                     </a>
                 </th>
                 <th scope="col">
+                    TECNOLOGIE
+                </th>
+                <th scope="col">
                     <a href="{{ route('admin.projects.index') }}?sort=text&order={{ $sort == 'text' && $order != 'DESC' ? 'DESC' : 'ASC' }}">
                         ABSTRACT
                         @if ($sort == 'text')
@@ -74,7 +77,9 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->type?->label }}</td>
-
+                    <td>@forelse($project->technologies as $technology) {{ $technology->label }} @if (!$loop->last)
+                        ,
+                    @endif @empty - @endforelse</td>
                     <td>{{ $project->getAbstract(20) }}</td>
                     <td>{{ $project->updated_at }}</td>
                     <td>{{ $project->created_at }}</td>
