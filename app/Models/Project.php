@@ -11,13 +11,13 @@ class Project extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'image', 'text', 'published', 'type_id'];
+    protected $fillable = ['title', 'image', 'text', 'published', 'type_id']; //le colonne nel fillable
 
     //relations
 
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(Type::class); //un progetto può avere un tipo
     }
 
     public function getAbstract($max = 50)

@@ -56,6 +56,8 @@ class ProjectController extends Controller
                 'title' => 'required|string|max:100',
                 'text' => 'required|string',
                 'image' => 'nullable|image|mimes:jpg,png,jpeg',
+                'published' => 'boolean',
+
                 'type_id' => 'nullable|exists:types,id',
 
             ],
@@ -129,6 +131,8 @@ class ProjectController extends Controller
                 'text' => 'required|string',
                 'image' => 'nullable|image|mimes:jpg,png,jpeg',
                 'published' => 'boolean',
+
+                'type_id' => 'nullable|exists:types,id',
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio',
@@ -140,6 +144,8 @@ class ProjectController extends Controller
 
                 'image.image' => 'Il file caricato deve essere un\'immagine',
                 'image.mimes' => 'L\'immagine deve essere un file jpg, png o jpeg',
+
+                'type_id.exists' => 'L\ID non è valido, seleziona tra quelli elencati',
             ]
         );
 
