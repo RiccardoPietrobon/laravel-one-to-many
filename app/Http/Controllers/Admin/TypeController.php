@@ -10,13 +10,18 @@ class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $types = Type::all(); //passo tutti i valori
-        return view('admin.types.index', compact('types')); //visualizzo il file index di type passo i types
+        $sort = (!empty($sort_request = $request->get('sort'))) ? $sort_request : "updated_at"; //metodo ordinamento sempre uguale cambio i parametri
+        $order = (!empty($order_request = $request->get('order'))) ? $order_request : "DESC";
+
+        $types = Type::orderBy($sort, $order)->paginate(10)->withQueryString();
+        return view('admin.types.index', compact('sort', 'order', 'types')); //visualizzo il file index di type passo i types
     }
 
     /**
@@ -56,7 +61,7 @@ class TypeController extends Controller
         $type->save(); //salvo
 
         return to_route('admin.types.show')
-            ->with('message', 'Progetto creato correttamente');
+            ->with('message', 'Tipologia creata correttamente');
     }
 
     /**
@@ -78,7 +83,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('admin.types.form', compact('types'));
+        return view('admin.types.form', compact('type'));
     }
 
     /**
@@ -90,7 +95,23 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        //
+        $request->validate([
+            'label' => 'required|string|max:20',
+            'color' => 'required|string|size:7', //per forza 7 sennò non funziona
+        ], [
+            'label.required' => 'La tipologia è richiesta',
+            'label.string' => 'La tipologia deve essere una stringa',
+            'label.max' => 'Può avere un massimo di 20 caratteri',
+
+            'color.required' => 'Il colore è richiesto',
+            'color.string' => 'Il colore deve essere una stringa',
+            'color.size' => 'Il colore deve avere la seguente sintassi #ffffff',
+        ]);
+
+        $type->update($request->all()); //faccio l'update
+
+        return to_route('admin.types.show')
+            ->with('message', 'Tipologia modificata correttamente');
     }
 
     /**
@@ -101,6 +122,10 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type_id = $type->id;
+        $type->delete();
+        return to_route('admin.types.index', $type)
+            ->with('message_type', 'danger')
+            ->with('message', "Tipologia $type_id eliminata definitivamente");
     }
 }
