@@ -62,6 +62,9 @@ class ProjectController extends Controller
 
                 'type_id' => 'nullable|exists:types,id',
 
+                'technologies' => 'nullable|exists:technologies,id',
+                'technologies.exists' => 'Le tech non sono valide',
+
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio',
@@ -75,6 +78,9 @@ class ProjectController extends Controller
                 'image.mimes' => 'L\'immagine deve essere un file jpg, png o jpeg',
 
                 'type_id.exists' => 'L\ID non è valido, seleziona tra quelli elencati',
+
+                'technologies' => 'nullable|exists:technologies,id',
+                'technologies.exists' => 'Le tech non sono valide',
 
             ]
         );
@@ -138,6 +144,8 @@ class ProjectController extends Controller
                 'published' => 'boolean',
 
                 'type_id' => 'nullable|exists:types,id',
+                'technologies' => 'nullable|exists:technologies,id',
+
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio',
@@ -151,6 +159,8 @@ class ProjectController extends Controller
                 'image.mimes' => 'L\'immagine deve essere un file jpg, png o jpeg',
 
                 'type_id.exists' => 'L\'ID non è valido, seleziona tra quelli elencati',
+
+                'technologies.exists' => 'Le tech non sono valide',
             ]
         );
 

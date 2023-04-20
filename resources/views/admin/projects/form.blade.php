@@ -93,17 +93,24 @@
 
                 <div class="row my-2 justify-content-center">
                     <div class="col-1">
-                        <label for="image" class="form-label">Tecnologie</label>
+                        <label for="image" class="form-label">Tecnologie:</label>
                     </div>
                     <div class="col-7">
-                        @foreach ($technologies as $technology)
-                            <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="{{ $technology->id }}" class="form-check-control" 
-                            @if (in_array($technology->id, $project_technologies))
-                                checked
-                            @endif>
-                            <label for="{{ $technology->id }}">{{ $technology->label }}</label>
-                            <br>
-                        @endforeach
+                        <div class="form-check @error('technologies') is-invalid @enderror">
+                            @foreach ($technologies as $technology)
+                                <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="{{ $technology->id }}" 
+                                @if (in_array($technology->id, $project_technologies ?? []))
+                                    checked
+                                @endif>
+                                <label for="{{ $technology->id }}">{{ $technology->label }}</label>
+                                <br>
+                            @endforeach
+                        </div>
+                        @error('technologies')    
+                            <div class="invalid-feedback">
+                                {{$message}}
+                            </div>
+                        @enderror
                     </div>
                     
                 </div>
