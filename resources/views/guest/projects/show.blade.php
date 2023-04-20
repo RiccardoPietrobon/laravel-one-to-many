@@ -5,6 +5,6 @@
 
 @section('content')
 
-    @dump($good_project)
+    @dump($project->title)
 
 @endsection

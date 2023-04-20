@@ -64,37 +64,41 @@
                     </a>
                 </th>
 
-                <th scope="col"></th>
+                <th scope="col">AZIONI</th>
 
                 </tr>
             </thead>
             <tbody>
                 @forelse ($types as $type)
                     <tr>
-                    <th scope="row">{{ $type->id }}</th>
-                    <td>{{ $type->label }}</td>
-                    <td><span class="badge" style="background-color: {{ $type->color }}">{{ $type->color }}</span></td>
-                    <td><span class="badge" style="background-color: {{ $type->color }}">{{ $type->label }}</span></td>
-                    <td>{{ $type->updated_at }}</td>
-                    <td>{{ $type->created_at }}</td>
+                        <th scope="row">{{ $type->id }}</th>
+                        <td>{{ $type->label }}</td>
+                        <td><span class="badge" style="background-color: {{ $type->color }}">{{ $type->color }}</span></td>
+                        <td>{!! $type->getBadgeHTML() !!}</td>
+                        <td>{{ $type->updated_at }}</td>
+                        <td>{{ $type->created_at }}</td>
 
-                    <td>
-                        <a href="{{ route('admin.types.show', $type) }}">
-                            <i class="bi bi-box-arrow-right mx-1"></i>
-                        </a>
+                        <td>
+                            <a href="{{ route('admin.types.show', $type) }}">
+                                <i class="bi bi-box-arrow-right mx-1"></i>
+                            </a>
 
-                        <a href="{{ route('admin.types.edit', $type) }}">
-                            <i class="bi bi-pen-fill mx-1"></i>
-                        </a>
+                            <a href="{{ route('admin.types.edit', $type) }}">
+                                <i class="bi bi-pen-fill mx-1"></i>
+                            </a>
 
-                        <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete-type-modal-{{ $type->id }}">
-                            <i class="bi bi-trash mx-1"></i>
-                        </a>
-                        
-                    </td>
+                            <a href="#" class="text-danger" data-bs-toggle="modal" data-bs-target="#delete-type-modal-{{ $type->id }}">
+                                <i class="bi bi-trash mx-1"></i>
+                            </a>
+                            
+                        </td>
                     </tr>
                 @empty
-                    
+                    <tr>
+                        <td colspan="7">
+                            Nessun risultato
+                        </td>
+                    </tr>
                 @endforelse
                 
             </tbody>

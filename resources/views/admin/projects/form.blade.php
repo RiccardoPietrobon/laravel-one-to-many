@@ -99,7 +99,7 @@
                         <div class="form-check @error('technologies') is-invalid @enderror">
                             @foreach ($technologies as $technology)
                                 <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="{{ $technology->id }}" 
-                                @if (in_array($technology->id, $project_technologies ?? []))
+                                @if (in_array($technology->id, old('technologies', $project_technologies ?? [])))
                                     checked
                                 @endif>
                                 <label for="{{ $technology->id }}">{{ $technology->label }}</label>

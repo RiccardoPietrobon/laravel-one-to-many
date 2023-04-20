@@ -67,7 +67,7 @@
                     </a>
                 </th>
 
-                <th scope="col"></th>
+                <th scope="col">AZIONI</th>
 
                 </tr>
             </thead>
@@ -76,10 +76,13 @@
                     <tr>
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
-                    <td>{{ $project->type?->label }}</td>
-                    <td>@forelse($project->technologies as $technology) {{ $technology->label }} @if (!$loop->last)
-                        ,
-                    @endif @empty - @endforelse</td>
+                    <td>{!! $project->type?->getBadgeHTML() !!}</td>
+                    <td>
+                        @forelse($project->technologies as $technology) {!! $technology->getBadgeHTML() !!}
+                        @empty
+                         - 
+                        @endforelse
+                    </td>
                     <td>{{ $project->getAbstract(20) }}</td>
                     <td>{{ $project->updated_at }}</td>
                     <td>{{ $project->created_at }}</td>
@@ -100,7 +103,11 @@
                     </td>
                     </tr>
                 @empty
-                    
+                    <tr>
+                        <td colspan="8">
+                            Nessun risultato
+                        </td>
+                    </tr>
                 @endforelse
                 
             </tbody>

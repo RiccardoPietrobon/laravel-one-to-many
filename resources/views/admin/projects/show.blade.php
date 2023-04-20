@@ -9,7 +9,14 @@
 
     <section>
         <img src="{{ $project->getImageUri() }}" alt="" width="400" class="my-3">
-        <h5>Tipologia: <span class="badge" style="background-color: {{$project->type?->color}}">{{$project->type?->label}}</span></h5>
+        <h5>Tipologia: @if ($project->type) {!! $project->type->getBadgeHTML() !!} @else Nessuna @endif </h5>     
+        
+        <h5>Tecnologia: @forelse($project->technologies as $technology) {!! $technology->getBadgeHTML() !!}
+                        @empty
+                        Nessuna
+                        @endforelse
+        </h5>
+
         <p>
             <strong>Descrizione</strong>
             <br>

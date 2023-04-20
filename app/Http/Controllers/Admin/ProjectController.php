@@ -97,6 +97,10 @@ class ProjectController extends Controller
         $project->slug = Project::generateUniqueSlug($project->title);
         $project->save();
 
+        if (Arr::exists($data, "technologies"))
+            $project->technologies()->attach($data["technologies"]);
+
+
         return to_route('admin.projects.show', $project)
             ->with('message', 'Progetto creato correttamente');
     }
@@ -198,6 +202,8 @@ class ProjectController extends Controller
     {
 
         if ($project->image) Storage::delete($project->image); //cancellala
+
+        $project->technologies()->detach();
 
         $project->delete();
         return to_route('admin.projects.index', $project)

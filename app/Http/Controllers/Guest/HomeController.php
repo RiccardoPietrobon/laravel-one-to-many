@@ -14,13 +14,15 @@ class HomeController extends Controller
         return view('guest.home', compact('good_projects'));
     }
 
-    public function show()
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Project $project)
     {
-        $good_projects = Project::where('published', 1)->orderBy('updated_at', 'DESC')->get();
-
-        foreach ($good_projects as $good_project) {
-        }
-
-        return view('guest.projects.show', compact('good_project'));
+        return view('guest.projects.show', compact('project'));
     }
 }
