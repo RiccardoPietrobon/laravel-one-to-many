@@ -90,6 +90,23 @@
                         <img src="{{ $project->getImageUri() }}" alt=""  width="400">
                     </div>
                 </div>
+
+                <div class="row my-2 justify-content-center">
+                    <div class="col-1">
+                        <label for="image" class="form-label">Tecnologie</label>
+                    </div>
+                    <div class="col-7">
+                        @foreach ($technologies as $technology)
+                            <input type="checkbox" name="technologies[]" value="{{ $technology->id }}" id="{{ $technology->id }}" class="form-check-control" 
+                            @if (in_array($technology->id, $project_technologies))
+                                checked
+                            @endif>
+                            <label for="{{ $technology->id }}">{{ $technology->label }}</label>
+                            <br>
+                        @endforeach
+                    </div>
+                    
+                </div>
                 
                 <div class="row my-2 justify-content-center">
                     <div class="col-8">

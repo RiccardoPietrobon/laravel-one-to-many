@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type; //importo il type
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr; //classe per gli array
@@ -39,8 +40,9 @@ class ProjectController extends Controller
     {
         $project = new Project;
         $types = Type::orderBy('label')->get(); //aggiungo types per vederlo nel form
+        $technologies = Technology::orderBy('label')->get(); //aggiungo technologies per vederlo nel form
 
-        return view('admin.projects.form', compact('project', 'types'));
+        return view('admin.projects.form', compact('project', 'types', 'technologies'));
     }
 
     /**
@@ -113,7 +115,10 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::orderBy('label')->get(); //aggiungo types per vederlo nel form
-        return view('admin.projects.form', compact('project', 'types'));
+        $technologies = Technology::orderBy('label')->get(); //aggiungo technologies per vederlo nel form
+        $project_technologies = $project->technologies->pluck('id')->toArray();
+
+        return view('admin.projects.form', compact('project', 'types', 'technologies', 'project_technologies'));
     }
 
     /**
@@ -139,13 +144,13 @@ class ProjectController extends Controller
                 'title.string' => 'Il titolo deve essere una stringa',
                 'title.max' => 'Il titolo può avere un massimo di 100 caratteri',
 
-                'text.required' => 'Il titolo è obbligatorio',
+                'text.required' => 'Il testo è obbligatorio',
                 'text.string' => 'Il testo deve essere una stringa',
 
                 'image.image' => 'Il file caricato deve essere un\'immagine',
                 'image.mimes' => 'L\'immagine deve essere un file jpg, png o jpeg',
 
-                'type_id.exists' => 'L\ID non è valido, seleziona tra quelli elencati',
+                'type_id.exists' => 'L\'ID non è valido, seleziona tra quelli elencati',
             ]
         );
 
@@ -162,6 +167,11 @@ class ProjectController extends Controller
         }
 
         $project->update($data);
+
+        if (Arr::exists($data, "technologies"))
+            $project->technologies()->sync($data["technologies"]);
+        else
+            $project->technologies()->detach();
 
 
         return to_route('admin.projects.show', $project)
