@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController; //controller generati
 
 use App\Http\Controllers\Admin\HomeController as AdminHomeController; //importo i controller ma do un nome personalizzato altrimenti sarebbero uguali
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Admin\TypeController;
 
 use App\Http\Controllers\Guest\HomeController as GuestHomeController;
@@ -31,6 +32,7 @@ Route::get('/home', [ProjectController::class, 'index'])->middleware('auth')->na
 Route::middleware('auth')->prefix('/admin')->name('admin.')->group(function () {
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']); //projects resource
     Route::resource('types', TypeController::class); //type resource
+    Route::resource('technologies', TechnologyController::class); //type resource
 
 });
 

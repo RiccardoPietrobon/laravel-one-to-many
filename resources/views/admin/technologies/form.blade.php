@@ -8,7 +8,7 @@
             Torna indietro
         </a>
         @if ($technology->id)
-            <a href="{{route('admin.technologies.show', $project)}}" class="btn btn-dark m-1">
+            <a href="{{route('admin.technologies.show', $technology)}}" class="btn btn-dark m-1">
             Mostrami il progetto
             </a>
         @endif
